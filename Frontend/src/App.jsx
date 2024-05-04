@@ -8,10 +8,10 @@ function App() {
 
   return (
     <>
-      <Navbar/>
+    
       <Banner/>
       <Freebook/>
-      <Footer/>
+  
     </>
   )
 }
