@@ -22,7 +22,7 @@ export default function SignUp() {
         <div className="border p-10 shadow-md">
           <form onSubmit={handleSubmit(onSubmit)} method="dialog">
             {/* if there is a button in form, it will close the modal */}
-            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+            <button className="btn btn-sm btn-ghost absolute right-2 top-2">
               ✕
             </button>
       

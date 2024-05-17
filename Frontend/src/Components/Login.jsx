@@ -17,7 +17,7 @@ export default function Login() {
         <div className="modal-box dark:bg-slate-900 dark:text-white dark:border">
           <form onSubmit={handleSubmit(onSubmit)} method="dialog">
             {/* if there is a button in form, it will close the modal */}
-            <Link className=" btn-sm btn-circle btn-ghost absolute right-2 top-2"
+            <Link className=" btn-sm btn-ghost absolute right-2 top-2"
             onClick={()=>document.getElementById('my_modal_3').close()}
             >
               ✕
