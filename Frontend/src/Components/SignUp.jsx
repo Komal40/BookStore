@@ -1,6 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useForm } from "react-hook-form";
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
 export default function SignUp() {
 
@@ -10,7 +12,29 @@ export default function SignUp() {
         watch,
         formState: { errors },
       } = useForm();
-      const onSubmit = (data) => console.log(data);
+
+
+      const onSubmit = async(data) => {
+        const userInfo={
+          fullName:data.fullName,
+          email:data.email,
+          password:data.password
+        }
+
+        await axios.post("http://localhost:4001/user/signup", userInfo)
+        .then((res)=>{
+          console.log(res.data)
+          if(res.data){
+            toast.success("SignUp Successfull")
+          }
+          localStorage.setItem("User", JSON.stringify(res.data.user))
+        }).catch(err=>{
+          if(err.response){
+            console.log(err)
+            toast.error(err.response.data.message)
+          }
+        })
+      }
 
 
   return (
@@ -25,7 +49,7 @@ export default function SignUp() {
             <button className="btn btn-sm btn-ghost absolute right-2 top-2">
               ✕
             </button>
-      
+
           <h3 className="font-bold text-lg"> SignUp !</h3>
           <div className="mt-3 space-y-2">
           <span>Name</span>
@@ -33,18 +57,18 @@ export default function SignUp() {
             <input
               placeholder="Enter Your Name"
               type="text"
-              className="outline-none w-80 border px-3 dark:bg-slate-900 dark:text-white"
-              {...register("name", { required: true })}
+              className="outline-none w-80 border px-3 py-2 dark:bg-slate-900 dark:text-white"
+              {...register("fullName", { required: true })}
             />
             <br/>
-              {errors.name && <span className="text-sm text-red-500">This field is required</span>}
+              {errors.fullName && <span className="text-sm text-red-500">This field is required</span>}
             <br/><br/>
             <span>Email</span>
             <br />
             <input
               placeholder="Enter Your Email"
               type="email"
-              className="outline-none w-80 border px-3 dark:bg-slate-900 dark:text-white"
+              className="outline-none w-80 border px-3 py-2 dark:bg-slate-900 dark:text-white"
               {...register("email", { required: true })}
             />
             <br/>
@@ -56,12 +80,12 @@ export default function SignUp() {
             <input
               placeholder="Enter Your Password"
               type="password"
-              className="outline-none w-80 border px-3 dark:bg-slate-900 dark:text-white"
+              className="outline-none w-80 border px-3 py-2 dark:bg-slate-900 dark:text-white"
               {...register("password", { required: true })}
             />
 <br/>
               {errors.password && <span className="text-sm text-red-500">This field is required</span>}
-           
+
           </div>
           <div className="flex justify-around align-center mt-4">
               <button className="bg-pink-500 text-white rounded-md cursor:pointer px-3 py-1">SignUp</button>
@@ -73,9 +97,9 @@ export default function SignUp() {
             </div>
             </form>
         </div>
-    
+
       </div>
-      
+
     </div>
    </>
   )

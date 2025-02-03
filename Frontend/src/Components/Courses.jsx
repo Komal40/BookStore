@@ -23,7 +23,7 @@ export default function Courses() {
   return (
     <>
     <div className='dark:bg-slate-900 dark:text-white'>
-    <div className='max-w-screen-2xl container mx-auto md:px-20 px-4 dark:bg-slate-900 dark:text-white'>
+    <div className='max-w-screen-2xl min-h-screen container mx-auto md:px-20 px-4 dark:bg-slate-900 dark:text-white'>
         <div className='pt-32 text-center space-y-10'>
             <h1 className='text-2xl md:text-4xl'>We are Delighted To Have You <span className='text-pink-500'>Here :)</span></h1>
             <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Incidunt dignissimos quam quo perferendis in nihil totam velit, facilis aliquam temporibus ipsam praesentium laborum blanditiis quisquam odit unde maxime quaerat minima.
@@ -42,7 +42,7 @@ export default function Courses() {
         </div>
     </div>
     </div>
-   
+
     </>
   )
 }

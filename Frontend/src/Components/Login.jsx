@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import axios from "axios";
 
 export default function Login() {
   const {
@@ -9,7 +11,33 @@ export default function Login() {
     watch,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+
+  const onSubmit = async(data) =>{
+    const userInfo={
+      email:data.email,
+      password:data.password
+    }
+
+    await axios.post("http://localhost:4001/user/login", userInfo)
+    .then((res)=>{
+      console.log(res.data)
+      if(res.data){
+        toast.success("Logged In Successfull")
+        document.getElementById('my_modal_3').close()
+
+        setTimeout(()=>{
+        window.location.reload()
+        localStorage.setItem("User", JSON.stringify(res.data.user))
+        }, 2000)
+
+      }
+    }).catch(err=>{
+      if(err.response){
+        console.log(err)
+        toast.error(err.response.data.message)
+      }
+    })
+  }
 
   return (
     <div className="dark:bg-slate-900 dark:text-white">
@@ -30,7 +58,7 @@ export default function Login() {
                 placeholder="Enter Your Email"
                 type="email"
                 {...register("email", { required: true })}
-                className="outline-none w-80 border px-3 dark:bg-slate-900 dark:text-white"
+                className="outline-none w-80 border px-3 py-2 dark:bg-slate-900 dark:text-white"
               />
               <br/>
               {errors.email && <span className="text-sm text-red-500">This field is required</span>}
@@ -42,7 +70,7 @@ export default function Login() {
                 placeholder="Enter Your Password"
                 type="password"
                 {...register("password", { required: true })}
-                className="outline-none w-80 border px-3 dark:bg-slate-900 dark:text-white"
+                className="outline-none w-80 border px-3 py-2 dark:bg-slate-900 dark:text-white"
               />
               <br/>
               {errors.password && <span className="text-sm text-red-500">This field is required</span>}
