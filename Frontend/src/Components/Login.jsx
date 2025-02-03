@@ -1,10 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import axios from "axios";
 
 export default function Login() {
+  const navigate=useNavigate()
+
   const {
     register,
     handleSubmit,
@@ -39,6 +41,11 @@ export default function Login() {
     })
   }
 
+  const handleSignup=()=>{
+    document.getElementById('my_modal_3').close()
+    navigate('/signup')
+  }
+  
   return (
     <div className="dark:bg-slate-900 dark:text-white">
       <dialog id="my_modal_3" className="modal">
@@ -81,8 +88,9 @@ export default function Login() {
               </button>
               <p>
                 Not Registered?{" "}
-                <span className="underline text-blue-500">
-                  <Link to="/signup">SignUp</Link>
+                <span className="underline text-blue-500 cursor-pointer" onClick={handleSignup} >
+                  Signup
+                  {/* <Link to="/signup">SignUp</Link> */}
                 </span>
               </p>
             </div>
